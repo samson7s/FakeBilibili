@@ -1,4 +1,5 @@
 using FakeBilibili.Data;
+using FakeBilibili.DataInitiator;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -73,6 +74,8 @@ namespace FakeBilibili
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
+
+            UserInitiator.InitialUsers(app.ApplicationServices).Wait();
         }
     }
 }
