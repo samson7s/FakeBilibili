@@ -15,7 +15,11 @@ namespace FakeBilibili.Models
         public User Author { get; set; }
 
         [Required]
-        public string VideoType { get; set; }
+        public string FileLocation { get; set; }     
+        
+        public byte[] Thumbnail { get; set; }
+
+        public string ThumbnailType { get; set; }
 
         [Required]
         public TimeSpan Duration { get; set; }
@@ -23,11 +27,20 @@ namespace FakeBilibili.Models
         [Required]
         public DateTime PublishDateTime { get; set; }
 
+        /// <summary>
+        /// 类别
+        /// </summary>
         [Required]
         public string Category { get; set; }
 
+        /// <summary>
+        /// 标签
+        /// </summary>
         public string Tag { get; set; }
 
+        /// <summary>
+        /// 观看数
+        /// </summary>
         [Required]
         public int VideoView { get; set; }
     }

@@ -11,10 +11,29 @@ namespace FakeBilibili.Models
         [Key]
         public int Id { get; set; }
 
+        /// <summary>
+        /// 图片类型
+        /// </summary>
+        public string AvatarType { get; set; }      
+
+        /// <summary>
+        /// 缩略图
+        /// </summary>
+        public byte[] AvatarThumbnail { get; set; }
+
+        /// <summary>
+        /// 作品
+        /// </summary>
         public ICollection<Video> Works { get; set; }
 
+        /// <summary>
+        /// 关注，内部用 / 分隔
+        /// </summary>
         public string Follows { get; set; }
 
+        /// <summary>
+        /// 粉丝
+        /// </summary>
         public string Fans { get; set; }
     }
 }
