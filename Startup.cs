@@ -76,6 +76,7 @@ namespace FakeBilibili
             });
 
             UserInitiator.InitialUsers(app.ApplicationServices).Wait();
+            UserIdentityInitiator.Initial(app.ApplicationServices).Wait();
         }
     }
 }

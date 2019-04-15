@@ -21,9 +21,7 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
 
             modelBuilder.Entity("FakeBilibili.Models.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<byte[]>("AvatarThumbnail");
 
@@ -32,6 +30,8 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
                     b.Property<string>("Fans");
 
                     b.Property<string>("Follows");
+
+                    b.Property<string>("UserName");
 
                     b.HasKey("Id");
 

@@ -9,7 +9,6 @@ using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using FakeBilibili.Data;
-using FakeBilibili.Migrations.UserAndVideoDb;
 using FakeBilibili.Models;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,7 +22,7 @@ namespace FakeBilibili.DataInitiator
             if (!context.Users.Any())
             {
                 string currentDirectory = Directory.GetCurrentDirectory();
-                int pictureSerial = 0;                
+                int pictureSerial = 0;                  
                                 
                 for (int i = 0; i < 20; i++)
                 {
@@ -32,7 +31,9 @@ namespace FakeBilibili.DataInitiator
                     User user = new User()
                     {
                         AvatarThumbnail = picData,
-                        AvatarType = "image/jpg"
+                        AvatarType = "image/jpg",
+                        UserName = $"User{i+1}",
+                        Id = i+1
                     };                    
 
                     await context.Users.AddAsync(user);

@@ -20,11 +20,12 @@ namespace FakeBilibili.Migrations
 
             modelBuilder.Entity("FakeBilibili.Models.UserIdentity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Password")
+                        .IsRequired();
+
+                    b.Property<string>("UserName")
                         .IsRequired();
 
                     b.HasKey("Id");

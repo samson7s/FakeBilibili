@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FakeBilibili.Migrations.UserAndVideoDb
 {
     [DbContext(typeof(UserAndVideoDbContext))]
-    [Migration("20190411141302_UserAndVideoDb")]
+    [Migration("20190415115307_UserAndVideoDb")]
     partial class UserAndVideoDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,9 +23,17 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
 
             modelBuilder.Entity("FakeBilibili.Models.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
+
+                    b.Property<byte[]>("AvatarThumbnail");
+
+                    b.Property<string>("AvatarType");
+
+                    b.Property<string>("Fans");
+
+                    b.Property<string>("Follows");
+
+                    b.Property<string>("UserName");
 
                     b.HasKey("Id");
 
@@ -45,12 +53,16 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
 
                     b.Property<TimeSpan>("Duration");
 
+                    b.Property<string>("FileLocation")
+                        .IsRequired();
+
                     b.Property<DateTime>("PublishDateTime");
 
                     b.Property<string>("Tag");
 
-                    b.Property<string>("VideoType")
-                        .IsRequired();
+                    b.Property<byte[]>("Thumbnail");
+
+                    b.Property<string>("ThumbnailType");
 
                     b.Property<int>("VideoView");
 

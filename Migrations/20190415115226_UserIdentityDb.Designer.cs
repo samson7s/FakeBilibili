@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FakeBilibili.Migrations
 {
     [DbContext(typeof(UserIdentityDbContext))]
-    [Migration("20190411132847_UserIdentityDb")]
+    [Migration("20190415115226_UserIdentityDb")]
     partial class UserIdentityDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,11 +22,12 @@ namespace FakeBilibili.Migrations
 
             modelBuilder.Entity("FakeBilibili.Models.UserIdentity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Password")
+                        .IsRequired();
+
+                    b.Property<string>("UserName")
                         .IsRequired();
 
                     b.HasKey("Id");
