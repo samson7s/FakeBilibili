@@ -30,8 +30,7 @@ namespace FakeBilibili.DataInitiator
                     byte[] picData=await File.ReadAllBytesAsync($"{currentDirectory}/Avatar/{pictureSerial}.jpg");
                     User user = new User()
                     {
-                        AvatarThumbnail = picData,
-                        AvatarType = "image/jpg",
+                        AvatarLocation = Path.Combine(currentDirectory,$"{i}.jpg"),
                         UserName = $"User{i+1}",
                         Id = i+1
                     };                    

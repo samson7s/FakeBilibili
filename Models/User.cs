@@ -16,15 +16,7 @@ namespace FakeBilibili.Models
         [Required]
         public string UserName { get; set; }
 
-        /// <summary>
-        /// 图片类型
-        /// </summary>
-        public string AvatarType { get; set; }      
-
-        /// <summary>
-        /// 缩略图
-        /// </summary>
-        public byte[] AvatarThumbnail { get; set; }
+        public string AvatarLocation { get; set; }
 
         /// <summary>
         /// 作品

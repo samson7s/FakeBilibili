@@ -13,9 +13,8 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
-                    UserName = table.Column<string>(nullable: true),
-                    AvatarType = table.Column<string>(nullable: true),
-                    AvatarThumbnail = table.Column<byte[]>(nullable: true),
+                    UserName = table.Column<string>(nullable: false),
+                    AvatarLocation = table.Column<string>(nullable: true),
                     Follows = table.Column<string>(nullable: true),
                     Fans = table.Column<string>(nullable: true)
                 },
@@ -30,13 +29,13 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(nullable: false),
                     AuthorId = table.Column<int>(nullable: false),
-                    FileLocation = table.Column<string>(nullable: false),
-                    Thumbnail = table.Column<byte[]>(nullable: true),
-                    ThumbnailType = table.Column<string>(nullable: true),
+                    VideoLocation = table.Column<string>(nullable: false),
+                    ThumbnailLocation = table.Column<string>(nullable: false),
                     Duration = table.Column<TimeSpan>(nullable: false),
                     PublishDateTime = table.Column<DateTime>(nullable: false),
-                    Category = table.Column<string>(nullable: false),
+                    Category = table.Column<int>(nullable: false),
                     Tag = table.Column<string>(nullable: true),
                     VideoView = table.Column<int>(nullable: false)
                 },

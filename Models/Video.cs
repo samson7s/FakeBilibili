@@ -18,11 +18,10 @@ namespace FakeBilibili.Models
         public User Author { get; set; }
 
         [Required]
-        public string FileLocation { get; set; }     
+        public string VideoLocation { get; set; }     
         
-        public byte[] Thumbnail { get; set; }
-
-        public string ThumbnailType { get; set; }
+        [Required]
+        public string ThumbnailLocation { get; set; }       
 
         [Required]
         public TimeSpan Duration { get; set; }

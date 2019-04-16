@@ -23,9 +23,7 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
                 {
                     b.Property<int>("Id");
 
-                    b.Property<byte[]>("AvatarThumbnail");
-
-                    b.Property<string>("AvatarType");
+                    b.Property<string>("AvatarLocation");
 
                     b.Property<string>("Fans");
 
@@ -51,18 +49,17 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
 
                     b.Property<TimeSpan>("Duration");
 
-                    b.Property<string>("FileLocation")
-                        .IsRequired();
-
                     b.Property<DateTime>("PublishDateTime");
 
                     b.Property<string>("Tag");
 
-                    b.Property<byte[]>("Thumbnail");
-
-                    b.Property<string>("ThumbnailType");
+                    b.Property<string>("ThumbnailLocation")
+                        .IsRequired();
 
                     b.Property<string>("Title")
+                        .IsRequired();
+
+                    b.Property<string>("VideoLocation")
                         .IsRequired();
 
                     b.Property<int>("VideoView");
