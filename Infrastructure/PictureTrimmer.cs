@@ -10,10 +10,11 @@ namespace FakeBilibili.Infrastructure
 {
     public class PictureTrimmer
     {        
-        public static void GetLocalTrimmedPicture(string fileName)
+        public static string GetLocalTrimmedPicture(string fileName)
         {
-            string newLocation = fileName.Insert(fileName.LastIndexOf("."), "min");
-            Image.FromFile(fileName).GetThumbnailImage(100, 100, null, IntPtr.Zero).Save(newLocation);
+            string newLocation = fileName.Insert(fileName.LastIndexOf(".")+1, "min.");
+            Image.FromFile(fileName).GetThumbnailImage(200, 200, null, IntPtr.Zero).Save(newLocation);
+            return newLocation;
         }
     }
 }

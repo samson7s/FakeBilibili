@@ -9,8 +9,8 @@ namespace FakeBilibili.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AvatarController : ControllerBase
+    public class LoginController : ControllerBase
     {
-
+        
     }
 }

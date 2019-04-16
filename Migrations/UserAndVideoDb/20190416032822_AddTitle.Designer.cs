@@ -4,14 +4,16 @@ using FakeBilibili.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FakeBilibili.Migrations.UserAndVideoDb
 {
     [DbContext(typeof(UserAndVideoDbContext))]
-    partial class UserAndVideoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190416032822_AddTitle")]
+    partial class AddTitle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -16,7 +16,7 @@ namespace FakeBilibili.DataInitiator
 {
     public class UserInitiator
     {
-        public static async Task InitialUsers(IServiceProvider serviceProvider)
+        public static async Task Initial(IServiceProvider serviceProvider)
         {
             UserAndVideoDbContext context = serviceProvider.GetRequiredService<UserAndVideoDbContext>();
             if (!context.Users.Any())

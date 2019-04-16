@@ -4,14 +4,16 @@ using FakeBilibili.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FakeBilibili.Migrations.UserAndVideoDb
 {
     [DbContext(typeof(UserAndVideoDbContext))]
-    partial class UserAndVideoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190415120602_SetRequired")]
+    partial class SetRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +49,8 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
 
                     b.Property<int>("AuthorId");
 
-                    b.Property<int>("Category");
+                    b.Property<string>("Category")
+                        .IsRequired();
 
                     b.Property<TimeSpan>("Duration");
 
@@ -61,9 +64,6 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
                     b.Property<byte[]>("Thumbnail");
 
                     b.Property<string>("ThumbnailType");
-
-                    b.Property<string>("Title")
-                        .IsRequired();
 
                     b.Property<int>("VideoView");
 

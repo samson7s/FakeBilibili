@@ -29,7 +29,6 @@ namespace FakeBilibili.DataInitiator
                     await context.Users.AddAsync(user);
                     await context.SaveChangesAsync();
                 }
-
             }
         }
     }
