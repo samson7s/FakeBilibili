@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace FakeBilibili.Infrastructure
 {
-    public class Encryptor:IEncrypt
+    public class Encryptor : IEncrypt
     {
-        private MD5 md5;
+        private readonly SHA256 sha256;
 
         public Encryptor()
         {
-            md5 = MD5.Create();
+            sha256 = SHA256.Create();
         }
 
-        public string Encrypt(string password)
+        public string Encrypt(string password, string salt)
         {
-            var hashBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
+            byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password + salt));
             StringBuilder hashPassword = new StringBuilder();
             foreach (var hashByte in hashBytes)
             {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FakeBilibili.Data;
 using FakeBilibili.Infrastructure;
 using FakeBilibili.Models;
+using FakeBilibili.Models.DomainModels;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FakeBilibili.DataInitiator
@@ -20,10 +21,12 @@ namespace FakeBilibili.DataInitiator
             {                
                 for (int i = 0; i < 20; i++)
                 {
+                    string salt = SaltGenerator.GenerateSalt();
                     UserIdentity user = new UserIdentity()
                     {
-                        UserName = $"User{i+1}",
-                        Password = encryptor.Encrypt($"User{i+1}"),
+                        UserName = $"User{i+1}",                        
+                        Password = encryptor.Encrypt($"User{i+1}",salt),
+                        Salt = salt,
                         Id = i+1
                     };
                     await context.Users.AddAsync(user);

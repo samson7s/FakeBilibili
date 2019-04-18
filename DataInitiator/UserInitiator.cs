@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FakeBilibili.Data;
 using FakeBilibili.Models;
+using FakeBilibili.Models.DomainModels;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FakeBilibili.DataInitiator

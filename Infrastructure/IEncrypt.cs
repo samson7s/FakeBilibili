@@ -7,6 +7,6 @@ namespace FakeBilibili.Infrastructure
 {
     interface IEncrypt
     {
-        string Encrypt(string password);
+        string Encrypt(string password,string salt);
     }
 }

@@ -3,14 +3,16 @@ using FakeBilibili.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FakeBilibili.Migrations
 {
     [DbContext(typeof(UserIdentityDbContext))]
-    partial class UserIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190418045655_AddSalt")]
+    partial class AddSalt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

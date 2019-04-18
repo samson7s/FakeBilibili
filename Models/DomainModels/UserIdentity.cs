@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
 
-namespace FakeBilibili.Models
+namespace FakeBilibili.Models.DomainModels
 {
     public class UserIdentity
     {
@@ -15,5 +14,8 @@ namespace FakeBilibili.Models
 
         [Required]        
         public string Password { get; set; }
+
+        [Required]
+        public string Salt { get; set; }
     }
 }

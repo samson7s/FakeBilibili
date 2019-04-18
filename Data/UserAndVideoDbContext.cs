@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FakeBilibili.Models;
+using FakeBilibili.Models.DomainModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace FakeBilibili.Data

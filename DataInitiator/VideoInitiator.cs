@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using FakeBilibili.Data;
 using FakeBilibili.Infrastructure;
 using FakeBilibili.Models;
+using FakeBilibili.Models.DomainModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Xabe.FFmpeg;
