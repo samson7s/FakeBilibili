@@ -27,7 +27,8 @@ namespace FakeBilibili.DataInitiator
                         UserName = $"User{i+1}",                        
                         Password = encryptor.Encrypt($"User{i+1}",salt),
                         Salt = salt,
-                        Id = i+1
+                        Id = i+1,
+                        Email = $"User{i + 1}@cnblog.com"
                     };
                     await context.Users.AddAsync(user);
                     await context.SaveChangesAsync();

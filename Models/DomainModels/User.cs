@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace FakeBilibili.Models.DomainModels
 {
@@ -9,6 +11,10 @@ namespace FakeBilibili.Models.DomainModels
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None)]
         public int Id { get; set; }
+
+        [EmailAddress]
+        [Required]
+        public string Email { get; set; }
 
         [Required]
         public string UserName { get; set; }

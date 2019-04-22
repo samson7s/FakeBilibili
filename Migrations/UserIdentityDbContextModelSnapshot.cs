@@ -22,6 +22,9 @@ namespace FakeBilibili.Migrations
                 {
                     b.Property<int>("Id");
 
+                    b.Property<string>("Email")
+                        .IsRequired();
+
                     b.Property<string>("Password")
                         .IsRequired();
 
@@ -32,6 +35,12 @@ namespace FakeBilibili.Migrations
                         .IsRequired();
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });

@@ -231,4 +231,5 @@ _Pvt_Extensions
 .fake/
 
 # Video File
-Video/*.mp4
+*.mp4
+*.jpg

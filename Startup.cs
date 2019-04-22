@@ -1,6 +1,7 @@
 using System.Text;
 using FakeBilibili.Data;
 using FakeBilibili.DataInitiator;
+using FakeBilibili.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +30,7 @@ namespace FakeBilibili
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<UserIdentityDbContext>(
-                opts=>opts.UseSqlServer(Configuration.GetConnectionString("UserIdentityDbContext")));
+                opts => opts.UseSqlServer(Configuration.GetConnectionString("UserIdentityDbContext")));
             services.AddDbContext<UserAndVideoDbContext>(
                 opts => opts.UseSqlServer(Configuration.GetConnectionString("UserAndVideoDbContext")));
 
@@ -38,7 +39,7 @@ namespace FakeBilibili
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-
+            services.AddScoped<IEncrypt, Encryptor>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -85,7 +86,7 @@ namespace FakeBilibili
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "ClientApp";                
+                spa.Options.SourcePath = "ClientApp";
                 if (env.IsDevelopment())
                 {
                     // spa.UseAngularCliServer(npmScript: "start");

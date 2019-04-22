@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FakeBilibili.Migrations.UserAndVideoDb
 {
     [DbContext(typeof(UserAndVideoDbContext))]
-    [Migration("20190416083910_UserAndVideoDb")]
+    [Migration("20190422025228_UserAndVideoDb")]
     partial class UserAndVideoDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,11 +21,14 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("FakeBilibili.Models.User", b =>
+            modelBuilder.Entity("FakeBilibili.Models.DomainModels.User", b =>
                 {
                     b.Property<int>("Id");
 
                     b.Property<string>("AvatarLocation");
+
+                    b.Property<string>("Email")
+                        .IsRequired();
 
                     b.Property<string>("Fans");
 
@@ -36,10 +39,16 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("FakeBilibili.Models.Video", b =>
+            modelBuilder.Entity("FakeBilibili.Models.DomainModels.Video", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,9 +82,9 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
                     b.ToTable("Videos");
                 });
 
-            modelBuilder.Entity("FakeBilibili.Models.Video", b =>
+            modelBuilder.Entity("FakeBilibili.Models.DomainModels.Video", b =>
                 {
-                    b.HasOne("FakeBilibili.Models.User", "Author")
+                    b.HasOne("FakeBilibili.Models.DomainModels.User", "Author")
                         .WithMany("Works")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade);

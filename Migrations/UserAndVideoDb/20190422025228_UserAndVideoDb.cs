@@ -13,6 +13,7 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
                     UserName = table.Column<string>(nullable: false),
                     AvatarLocation = table.Column<string>(nullable: true),
                     Follows = table.Column<string>(nullable: true),
@@ -49,6 +50,18 @@ namespace FakeBilibili.Migrations.UserAndVideoDb
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_UserName",
+                table: "Users",
+                column: "UserName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Videos_AuthorId",

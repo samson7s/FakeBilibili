@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FakeBilibili.Migrations
 {
     [DbContext(typeof(UserIdentityDbContext))]
-    [Migration("20190415115226_UserIdentityDb")]
+    [Migration("20190422032100_UserIdentityDb")]
     partial class UserIdentityDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,17 +20,29 @@ namespace FakeBilibili.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("FakeBilibili.Models.UserIdentity", b =>
+            modelBuilder.Entity("FakeBilibili.Models.DomainModels.UserIdentity", b =>
                 {
                     b.Property<int>("Id");
 
+                    b.Property<string>("Email")
+                        .IsRequired();
+
                     b.Property<string>("Password")
+                        .IsRequired();
+
+                    b.Property<string>("Salt")
                         .IsRequired();
 
                     b.Property<string>("UserName")
                         .IsRequired();
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });

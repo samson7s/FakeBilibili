@@ -28,12 +28,12 @@ namespace FakeBilibili.DataInitiator
                 for (int i = 0; i < 20; i++)
                 {
                     pictureSerial = i % 4;
-                    byte[] picData=await File.ReadAllBytesAsync($"{currentDirectory}/Avatar/{pictureSerial}.jpg");
                     User user = new User()
                     {
-                        AvatarLocation = Path.Combine(currentDirectory,$"{i}.jpg"),
+                        AvatarLocation = Path.Combine(currentDirectory,$"{pictureSerial}.jpg"),
                         UserName = $"User{i+1}",
-                        Id = i+1
+                        Id = i+1,
+                        Email = $"User{i+1}@cnblog.com"
                     };                    
 
                     await context.Users.AddAsync(user);

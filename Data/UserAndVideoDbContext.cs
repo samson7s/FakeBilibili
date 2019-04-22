@@ -14,5 +14,11 @@ namespace FakeBilibili.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Video> Videos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasIndex(u => new { u.Email}).IsUnique(true);
+            modelBuilder.Entity<User>().HasIndex(u => new { u.UserName }).IsUnique(true);
+        }
     }
 }

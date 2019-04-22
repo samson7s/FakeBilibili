@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FakeBilibili.Infrastructure
 {
-    interface IEncrypt
+    public interface IEncrypt
     {
         string Encrypt(string password,string salt);
     }
