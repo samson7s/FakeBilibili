@@ -6,10 +6,9 @@ using FakeBilibili.Models.DomainModels;
 
 namespace FakeBilibili.Models
 {
-    public class Account
+    public class LoginModel
     {
-        public int Id { get; set; }
+        public string Account { get; set; }
         public string Password { get; set; }
-        public LoginType LoginType { get; set; }
     }
 }

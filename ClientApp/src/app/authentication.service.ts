@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Account } from './account';
-import { catchError, map, tap } from 'rxjs/operators';
+import { map} from 'rxjs/operators';
 
 
 const httpOptions = {
@@ -12,7 +12,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthenticationService {  
-  private loginUrl:string="api/login";
+  private loginUrl:string="api/account/login";
 
   constructor(private http:HttpClient) { }
 
@@ -22,6 +22,7 @@ export class AuthenticationService {
           if(user&&user.token){
             localStorage.setItem('TokenInfo',JSON.stringify(user));
           }
+          return user;
         })
     );
   }

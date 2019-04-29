@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using FakeBilibili.Data;
 using FakeBilibili.Infrastructure;
@@ -11,30 +12,37 @@ using FakeBilibili.Models;
 using FakeBilibili.Models.DomainModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace FakeBilibili.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class LoginController : ControllerBase
-    {
-        private IConfiguration _config;
-        private UserIdentityDbContext _identityDbContext;
-        private IEncrypt _encryptor;
-
-        public LoginController(IConfiguration config, IEncrypt encryptor, UserIdentityDbContext identityDbContext)
+        [Route("api/[controller]")]
+        [ApiController]
+        public class AccountController : ControllerBase
         {
-            _config = config;
-            _identityDbContext = identityDbContext;
-            _encryptor = encryptor;
-        }
+            private IConfiguration _config;
+            private UserIdentityDbContext _identityDbContext;
+            private IEncrypt _encryptor;
+
+            public AccountController(IConfiguration config, IEncrypt encryptor, UserIdentityDbContext identityDbContext)
+            {
+                _config = config;
+                _identityDbContext = identityDbContext;
+                _encryptor = encryptor;
+            }
 
         [HttpPost]
-        public IActionResult Login(Account account)
+        [Route("Login")]
+        public async Task<IActionResult> Login(LoginModel account)
         {
-            var user = ValidateUser(account);
+            if (account.Account==null||account.Password==null)
+            {
+                return Unauthorized();
+            }
+
+            var user = await ValidateUser(account);
             if (user != null)
             {
                 var tokenString = GenerateJsonWebToken(user);
@@ -44,9 +52,10 @@ namespace FakeBilibili.Controllers
             return Unauthorized();
         }
 
-        UserIdentity ValidateUser(Account account)
+        async Task<UserIdentity> ValidateUser(LoginModel account)
         {
-            UserIdentity user = _identityDbContext.Users.FirstOrDefault(u => u.Id == account.Id);
+            UserIdentity user = await GetUser(account);
+
             if (user == null)
             {
                 return null;
@@ -59,6 +68,28 @@ namespace FakeBilibili.Controllers
             }
 
             return null;
+        }
+
+        async Task<UserIdentity> GetUser(LoginModel account)
+        {
+            string regexId = @"^\d+$";
+            string regexUserName = @"^\w+[\d\w]*$";
+            string regexEmail = @"[a-zA-Z\d]+@[a-zA-Z\d]+.";
+
+            UserIdentity user = new UserIdentity();
+            if (Regex.IsMatch(account.Account,regexId))
+            {
+                user = await _identityDbContext.Users.FirstOrDefaultAsync(u => u.Id == Int32.Parse(account.Account));
+            }
+            else if (Regex.IsMatch(account.Account,regexUserName))
+            {
+                user = await _identityDbContext.Users.FirstOrDefaultAsync(u => u.UserName == account.Account);
+            }
+            else if (Regex.IsMatch(account.Account,regexEmail))
+            {
+                user = await _identityDbContext.Users.FirstOrDefaultAsync(u => u.Email == account.Account);
+            }
+            return user;
         }
 
         string GenerateJsonWebToken(UserIdentity user)

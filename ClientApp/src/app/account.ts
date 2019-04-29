@@ -1,4 +1,4 @@
 export class Account{
-    id:number;
+    account:number|string;
     password:string;
 }
