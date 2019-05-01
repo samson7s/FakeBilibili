@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.head-nav{
+    li{
+        display: inline;
+        a{
+            color: #ff00;            
+        }
+    }
+    ul{
+        list-style: none;
+    }
+}

@@ -34,6 +34,11 @@ namespace FakeBilibili.DataInitiator
                     string videoPath = Path.Combine(videoDirectory, $"{i}.mp4");
                     string picPath = Path.Combine(videoDirectory, $"{i}.jpg");
 
+                    if (File.Exists(picPath))
+                    {
+                        File.Delete(picPath);
+                    }
+
                     //获取视频信息
                     IMediaInfo mediaInfo = await MediaInfo.Get(videoPath);
                     //以 0 秒时的画面作为封面图并保存在本地

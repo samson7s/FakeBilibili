@@ -18,7 +18,6 @@ namespace FakeBilibili.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<UserIdentity>().HasIndex(u => new { u.Email }).IsUnique(true);
             modelBuilder.Entity<UserIdentity>().HasIndex(u => new { u.UserName }).IsUnique(true);
         }

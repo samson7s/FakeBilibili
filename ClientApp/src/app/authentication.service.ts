@@ -17,7 +17,7 @@ export class AuthenticationService {
   constructor(private http:HttpClient) { }
 
   login(account:Account){
-    return this.http.post<any>(this.loginUrl,account,httpOptions).pipe(
+    return this.http.post<any>(this.loginUrl,JSON.stringify(account),httpOptions).pipe(
         map(user=>{
           if(user&&user.token){
             localStorage.setItem('TokenInfo',JSON.stringify(user));

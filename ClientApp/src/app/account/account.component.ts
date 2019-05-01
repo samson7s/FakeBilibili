@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Account } from '../account';
 import { AuthenticationService } from '../authentication.service';
 import { first } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Router, Route, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-account',
@@ -11,22 +11,26 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent implements OnInit {
-  account:Account;
   returnUrl:'';
   error:string;
-  submited:false;
+  submitForm=false;
+  submitted=false;
+  account:Account={account:"",password:""}
 
   constructor(
     private fb:FormBuilder,
     private router:Router,
+    private route:ActivatedRoute,
     private authenticationService:AuthenticationService
     ) { }
 
-  loginForm=this.fb.group({
-    account:[''],
-    password:[''],    
+  loginForm:FormGroup=this.fb.group({
+    account:['',Validators.email||Validators.pattern("^\\d+$")]||Validators.pattern("^\w+[\\d\\w]*$"),
+    password:['',Validators.minLength(4)],    
   })
   ngOnInit() {
+    this.returnUrl=this.route.snapshot.queryParams['returnUrl']||'/';
+    this.authenticationService.logout();
   }
    
   get formData(){
@@ -34,8 +38,10 @@ export class AccountComponent implements OnInit {
   }
 
   onLogin(){    
+    this.submitForm=true;
+    this.submitted=true;
     this.account.account=this.formData.account.value;
-    this.account.password=this.formData.password.value;
+    this.account.password=this.formData.password.value;    
     this.authenticationService.login(this.account)
         .pipe(first())
         .subscribe(
@@ -44,6 +50,7 @@ export class AccountComponent implements OnInit {
           },
           error=>{
             this.error=error;            
+            this.submitForm=false;
           }
         );
   }

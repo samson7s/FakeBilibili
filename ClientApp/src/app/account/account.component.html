@@ -5,9 +5,10 @@
   <div class="form-group">
       <input id="password" formControlName="password" class="form-control" placeholder="密码">
   </div>    
-    <button type="submit">Submit</button>
+    <button type="submit" [disabled]="submitForm">Submit</button>
 </form>
 
 <p>
-  Form Value:{{loginForm.value|json}}
+  Form Value:{{loginForm.controls.account.value}}
 </p>
+<p>{{account|json}}</p>

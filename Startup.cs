@@ -46,11 +46,14 @@ namespace FakeBilibili
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
                         ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
                         ValidIssuer = Configuration["Jwt:Issuer"],
+
+                        ValidateAudience = true,
                         ValidAudience = Configuration["Jwt:Issuer"],
+
+                        ValidateLifetime = true,
+
+                        ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                     };
                 });
@@ -73,6 +76,7 @@ namespace FakeBilibili
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

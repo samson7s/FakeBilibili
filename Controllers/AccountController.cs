@@ -5,11 +5,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using FakeBilibili.Data;
 using FakeBilibili.Infrastructure;
 using FakeBilibili.Models;
 using FakeBilibili.Models.DomainModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,26 +20,28 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FakeBilibili.Controllers
 {
-        [Route("api/[controller]")]
-        [ApiController]
-        public class AccountController : ControllerBase
-        {
-            private IConfiguration _config;
-            private UserIdentityDbContext _identityDbContext;
-            private IEncrypt _encryptor;
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AccountController : ControllerBase
+    {
+        private IConfiguration _config;
+        private UserIdentityDbContext _identityDbContext;
+        private UserAndVideoDbContext _userAndVideoDbContext;
+        private IEncrypt _encryptor;
 
-            public AccountController(IConfiguration config, IEncrypt encryptor, UserIdentityDbContext identityDbContext)
-            {
-                _config = config;
-                _identityDbContext = identityDbContext;
-                _encryptor = encryptor;
-            }
+        public AccountController(IConfiguration config, IEncrypt encryptor, UserIdentityDbContext identityDbContext,UserAndVideoDbContext userAndVideoDbContext)
+        {
+            _config = config;
+            _identityDbContext = identityDbContext;
+            _encryptor = encryptor;
+            _userAndVideoDbContext = userAndVideoDbContext;
+        }
 
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login(LoginModel account)
         {
-            if (account.Account==null||account.Password==null)
+            if (account.Account == null || account.Password == null)
             {
                 return Unauthorized();
             }
@@ -50,6 +54,19 @@ namespace FakeBilibili.Controllers
             }
 
             return Unauthorized();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> PersonalInfo()
+        {
+            string userName=User.FindFirst(JwtRegisteredClaimNames.Sub).Value;
+            User user = _userAndVideoDbContext.Users.Include(u=>u.Works).FirstOrDefault(u => u.UserName == userName);
+            if (user==null)
+            {
+                return Unauthorized();
+            }
+            return Ok(new {UserName = user.UserName});
         }
 
         async Task<UserIdentity> ValidateUser(LoginModel account)
@@ -77,15 +94,15 @@ namespace FakeBilibili.Controllers
             string regexEmail = @"[a-zA-Z\d]+@[a-zA-Z\d]+.";
 
             UserIdentity user = new UserIdentity();
-            if (Regex.IsMatch(account.Account,regexId))
+            if (Regex.IsMatch(account.Account, regexId))
             {
                 user = await _identityDbContext.Users.FirstOrDefaultAsync(u => u.Id == Int32.Parse(account.Account));
             }
-            else if (Regex.IsMatch(account.Account,regexUserName))
+            else if (Regex.IsMatch(account.Account, regexUserName))
             {
                 user = await _identityDbContext.Users.FirstOrDefaultAsync(u => u.UserName == account.Account);
             }
-            else if (Regex.IsMatch(account.Account,regexEmail))
+            else if (Regex.IsMatch(account.Account, regexEmail))
             {
                 user = await _identityDbContext.Users.FirstOrDefaultAsync(u => u.Email == account.Account);
             }

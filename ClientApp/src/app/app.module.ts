@@ -6,12 +6,13 @@ import { AppComponent } from './app.component';
 import { AccountComponent } from './account/account.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NavHeadComponent } from './nav-head/nav-head.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AccountComponent
+    AccountComponent,
+    NavHeadComponent,
   ],
   imports: [
     BrowserModule,
