@@ -4,7 +4,7 @@ import { AuthenticationService } from '../authentication.service';
 import { first } from 'rxjs/operators';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { RestrictedAccountValidator } from '../../Shared/RestrictedAccount.directive';
+import { RestrictedAccountValidator } from 'src/Shared/RestrictedAccount.directive';
 
 @Component({
   selector: 'app-account',
@@ -26,7 +26,7 @@ export class AccountComponent implements OnInit {
     ) { }
 
   loginForm:FormGroup=this.fb.group({
-    account:['',Validators.required,RestrictedAccountValidator(/fuck/i)],
+    account:['',RestrictedAccountValidator],
     password:['',Validators.minLength(4)],    
   })
   ngOnInit() {

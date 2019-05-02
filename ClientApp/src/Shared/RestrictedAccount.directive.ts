@@ -1,7 +1,12 @@
-import { AbstractControl, ValidatorFn } from '@angular/forms';
-export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-      const forbidden = nameRe.test(control.value);
-      return forbidden ? {'forbiddenName': {value: control.value}} : null;
-    };
+import { AbstractControl, ValidatorFn, ValidationErrors, Validators } from '@angular/forms';
+export function RestrictedAccountValidator(control:AbstractControl): ValidationErrors|null {
+    var required=Validators.required(control);
+    if(required){
+      return required;
+    }
+
+    var validateEmail=Validators.email(control);
+    var validateId=/\d+/.test(control.value);
+    var validateUserName=/\w+[\d\w]*/.test(control.value);
+    return validateEmail||validateId||validateUserName?{'RestrictedAccount':control.value}:null;
   }
