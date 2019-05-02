@@ -26,7 +26,7 @@ export class AccountComponent implements OnInit {
     ) { }
 
   loginForm:FormGroup=this.fb.group({
-    account:['',invalidAccountValidator()],
+    account:['',invalidAccountValidator],
     password:['',[Validators.required,Validators.minLength(4)]],    
   })
   ngOnInit() {
