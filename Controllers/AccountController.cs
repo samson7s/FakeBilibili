@@ -90,7 +90,7 @@ namespace FakeBilibili.Controllers
         async Task<UserIdentity> GetUser(LoginModel account)
         {
             string regexId = @"^\d+$";
-            string regexUserName = @"^\w+[\d\w]*$";
+            string regexUserName = @"^[a-zA-Z]+[a-zA-Z\d]*$";
             string regexEmail = @"[a-zA-Z\d]+@[a-zA-Z\d]+.";
 
             UserIdentity user = new UserIdentity();
