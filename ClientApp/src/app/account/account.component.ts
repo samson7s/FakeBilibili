@@ -4,7 +4,7 @@ import { AuthenticationService } from '../authentication.service';
 import { first } from 'rxjs/operators';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { invalidAccountValidator, forbiddenNameValidator } from '../../Shared/invalidAccount.directive';
+import { invalidAccountValidator } from '../../Shared/invalidAccount.directive';
 
 @Component({
   selector: 'app-account',
@@ -20,13 +20,13 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
+    private router: Router, 
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService
   ) { }
 
   loginForm: FormGroup = this.fb.group({
-    account: ['', forbiddenNameValidator(/fuck/i)],
+    account: ['', invalidAccountValidator()],
     password: ['', [Validators.required, Validators.minLength(4)]],
   })
   ngOnInit() {
