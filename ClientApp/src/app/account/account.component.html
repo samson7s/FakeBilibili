@@ -2,20 +2,16 @@
   <div class="form-group">
       <input id="account" formControlName="account" class="form-control" placeholder="账号/用户名/邮箱">
   </div>
+  <div *ngIf="formAccount.errors.invalidAccount">
+    {{formAccount.errors.invalidAccount.message}}
+  </div>
   <div class="form-group">
       <input id="password" formControlName="password" class="form-control" placeholder="密码">
   </div>    
     <button type="submit" [disabled]="submitForm">Submit</button>
+    <div *ngIf="formPassword.errors.required">fuck</div>
 </form>
-
-<p>
-  Form Value:{{loginForm.controls.account.value}}
-</p>
-<p>{{account|json}}</p>
 <p>{{loginForm.status}}</p>
 
-<div *ngIf="formAccount.errors.invalidAccount">
-  {{formAccount.errors.invalidAccount.message}}
-</div>
-<div *ngIf="formPassword.errors.required">fuck</div>
+
 
