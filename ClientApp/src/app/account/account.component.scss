@@ -1,4 +1,27 @@
+$blue:    #007bff !default;
+$red:     #dc3545 !default;
+
+$btn-background-color: aqure;
+
 .form-control{
-    width: 400px;
-    
+    width: 400px;    
+}
+
+form{
+    margin: 10px;
+}
+
+input+div{
+    color:$red;
+}
+
+button{
+    background-color:$blue;
+    color: white;
+    width: 10em;
+    height: 3em;
+    border-radius: 0.5em;
+}
+button:hover{        
+    background-color: lighten($color: $blue, $amount: 10%);
 }

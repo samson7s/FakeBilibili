@@ -1,21 +1,18 @@
 <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
   <div class="form-group">
-      <input id="account" formControlName="account" class="form-control" placeholder="账号/用户名/邮箱">
+    <input id="account" formControlName="account" class="form-control" placeholder="账号/用户名/邮箱">
+    <div *ngIf="formAccount.errors?.invalidAccount&&formAccount.dirty">
+      {{formAccount.errors.invalidAccount.message}}
+    </div>
   </div>
   <div class="form-group">
-      <input id="password" formControlName="password" class="form-control" placeholder="密码">
-  </div>    
-    <button type="submit" [disabled]="submitForm">Submit</button>
+    <input type="password" id="password" formControlName="password" class="form-control" placeholder="密码">
+    <div *ngIf="formPassword.invalid&&(formPassword.dirty || formPassword.touched)">
+      <div *ngIf="formPassword.errors?.required">请输入密码</div>
+      <div *ngIf="formPassword.errors?.minlength">密码至少为5位</div>
+    </div>
+  </div>
+  <div *ngIf="error" class="text-danger">账号或密码错误</div>
+  <button type="submit" [disabled]="submitForm||loginForm.invalid">登录</button>
 </form>
-
-<p>
-  Form Value:{{loginForm.controls.account.value}}
-</p>
-<p>{{account|json}}</p>
-<p>{{loginForm.status}}</p>
-
-<div *ngIf="formAccount.errors.invalidAccount">
-  {{formAccount.errors.invalidAccount.message}}
-</div>
-<div *ngIf="formPassword.errors.required">fuck</div>
 
