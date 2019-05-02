@@ -87,6 +87,12 @@ namespace FakeBilibili.Controllers
             return null;
         }
 
+        [Route("play")]
+        public IActionResult ForPlay()
+        {
+            return Ok(new{fuck="fuck you"});
+        }
+
         async Task<UserIdentity> GetUser(LoginModel account)
         {
             string regexId = @"^\d+$";
