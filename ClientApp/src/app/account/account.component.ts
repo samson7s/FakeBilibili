@@ -4,7 +4,7 @@ import { AuthenticationService } from '../authentication.service';
 import { first } from 'rxjs/operators';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { invalidAccountValidator } from 'src/Shared/RestrictedAccount.directive';
+import { invalidAccountValidator } from '../../Shared/invalidAccount.directive';
 
 @Component({
   selector: 'app-account',
@@ -12,55 +12,57 @@ import { invalidAccountValidator } from 'src/Shared/RestrictedAccount.directive'
   styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent implements OnInit {
-  returnUrl:'';
-  error:string;
-  submitForm=false;
-  submitted=false;
-  account:Account={account:"",password:""}
+  returnUrl: '';
+  error: string;
+  submitForm = false;
+  submitted = false;
+  account: Account = { account: "", password: "" }
 
   constructor(
-    private fb:FormBuilder,
-    private router:Router,
-    private route:ActivatedRoute,
-    private authenticationService:AuthenticationService
-    ) { }
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private authenticationService: AuthenticationService
+  ) { }
 
-  loginForm:FormGroup=this.fb.group({
-    account:['',invalidAccountValidator],
-    password:['',[Validators.required,Validators.minLength(4)]],    
+  loginForm: FormGroup = this.fb.group({
+    account: ['', invalidAccountValidator()],
+    password: ['', [Validators.required, Validators.minLength(4)]],
   })
   ngOnInit() {
-    this.returnUrl=this.route.snapshot.queryParams['returnUrl']||'/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.authenticationService.logout();
   }
-   
-  get formData(){
-    return this.loginForm.controls;    
+
+  get formData() {
+    return this.loginForm.controls;
   }
 
-  get formAccount(){
+  get formAccount() {
     return this.loginForm.get('account');
   }
 
-  get formPassword(){
+  get formPassword() {
     return this.loginForm.get('password');
   }
 
-  onLogin(){    
-    this.submitForm=true;
-    this.submitted=true;
-    this.account.account=this.formData.account.value;
-    this.account.password=this.formData.password.value;    
-    this.authenticationService.login(this.account)
+  onLogin() {
+    if (this.loginForm.valid) {
+      this.submitForm = true;
+      this.submitted = true;
+      this.account.account = this.formData.account.value;
+      this.account.password = this.formData.password.value;
+      this.authenticationService.login(this.account)
         .pipe(first())
         .subscribe(
-          data=>{
+          data => {
             this.router.navigate([this.returnUrl]);
           },
-          error=>{
-            this.error=error;            
-            this.submitForm=false;
+          error => {
+            this.error = error;
+            this.submitForm = false;
           }
         );
+    }
   }
 }
