@@ -13,4 +13,9 @@
 </p>
 <p>{{account|json}}</p>
 <p>{{loginForm.status}}</p>
-<p>{{loginForm.account.errors.restrictedAccountValidator|json}}</p>
+<!-- 
+<div *ngIf="formAccount.errors.invalidAccount">
+  {{formAccount.errors.invalidAccount.message}}
+</div> -->
+<div *ngIf="formPassword.errors.required">fuck</div>
+
