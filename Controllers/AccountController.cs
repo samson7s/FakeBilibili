@@ -66,7 +66,7 @@ namespace FakeBilibili.Controllers
             {
                 return Unauthorized();
             }
-            return Ok(new {UserName = user.UserName,WorksId=user.Works.Select(w=>w.Id)});
+            return Ok(new {Id= user.Id,Email=user.Email,UserName = user.UserName,Works=user.Works.Select(w=>w.Id),Follows=user.Follows,Fans=user.Fans});
         }
 
         async Task<UserIdentity> ValidateUser(LoginModel account)

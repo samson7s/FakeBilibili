@@ -1,0 +1,17 @@
+.head-nav {
+    ul {
+      list-style: none;
+      li {
+        display: inline;
+        padding: 0.5em;        
+        a{
+            color: black;
+        }
+      }
+    }
+  }
+  
+
+  li:hover{
+      background-color: rgb(240, 240, 240)
+  }
