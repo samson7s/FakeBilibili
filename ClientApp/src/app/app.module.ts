@@ -25,7 +25,7 @@ import { AuthenticationService } from './authentication.service';
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:tokenInterceptor,multi:true},
-    {provide:HTTP_INTERCEPTORS,useClass:unauthorizedInterceptor,multi:true},
+    // {provide:HTTP_INTERCEPTORS,useClass:unauthorizedInterceptor,multi:true},
     AuthenticationService
   ],
   bootstrap: [AppComponent]

@@ -61,12 +61,12 @@ namespace FakeBilibili.Controllers
         public async Task<IActionResult> PersonalInfo()
         {
             string userName=User.FindFirst(JwtRegisteredClaimNames.Sub).Value;
-            User user = _userAndVideoDbContext.Users.Include(u=>u.Works).FirstOrDefault(u => u.UserName == userName);
+            User user = await _userAndVideoDbContext.Users.Include(u=>u.Works).FirstOrDefaultAsync(u => u.UserName == userName);
             if (user==null)
             {
                 return Unauthorized();
             }
-            return Ok(new {UserName = user.UserName});
+            return Ok(new {UserName = user.UserName,WorksId=user.Works.Select(w=>w.Id)});
         }
 
         async Task<UserIdentity> ValidateUser(LoginModel account)

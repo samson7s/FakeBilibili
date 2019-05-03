@@ -1,17 +1,17 @@
   import { Component, OnInit, Input } from '@angular/core';
-  import { Account } from '../account';
   import { AuthenticationService } from '../authentication.service';
   import { first } from 'rxjs/operators';
   import { Router, Route, ActivatedRoute } from '@angular/router';
   import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
   import { invalidAccountValidator } from '../../Shared/invalidAccount.directive';
+import { Account } from '../Models/account';
 
   @Component({
     selector: 'app-account',
-    templateUrl: './account.component.html',
-    styleUrls: ['./account.component.scss'],
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
   })
-  export class AccountComponent implements OnInit {
+  export class LoginComponent implements OnInit {
     returnUrl: '';
     error: string;
     submitForm = false;
