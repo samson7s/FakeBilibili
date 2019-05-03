@@ -1,10 +1,10 @@
   import { Component, OnInit, Input } from '@angular/core';
-  import { AuthenticationService } from '../authentication.service';
   import { first } from 'rxjs/operators';
   import { Router, Route, ActivatedRoute } from '@angular/router';
   import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
   import { invalidAccountValidator } from '../../Shared/invalidAccount.directive';
 import { Account } from '../Models/account';
+import { AuthenticationService } from '../Services/authentication.service';
 
   @Component({
     selector: 'app-account',
