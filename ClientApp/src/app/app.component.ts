@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GetAvatarService } from './Services/getAvatar.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  constructor(avatarService: GetAvatarService) {
+    this.avatarString= avatarService.getAvatar();
+  }
+
   title = 'ClientApp';
+  avatarString = '';
+  navbarPic='api/index/GetNavbarPic';
 }

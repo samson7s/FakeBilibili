@@ -23,7 +23,9 @@
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26",
-    "bootstrap": "~4.3.1"
+    "bootstrap": "~4.3.1",
+    "jsonwebtoken": "~8.5.1",
+    "@auth0/angular-jwt":"~2.1.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.13.0",
@@ -44,6 +46,9 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.2.2"
+    "typescript": "~3.2.2",
+    "jsonwebtoken": "~8.5.1",
+    "@auth0/angular-jwt":"~2.1.0"
+
   }
 }

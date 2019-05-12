@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -12,7 +13,6 @@ using FakeBilibili.Infrastructure;
 using FakeBilibili.Models;
 using FakeBilibili.Models.DomainModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +28,8 @@ namespace FakeBilibili.Controllers
         private UserIdentityDbContext _identityDbContext;
         private UserAndVideoDbContext _userAndVideoDbContext;
         private IEncrypt _encryptor;
+
+        private readonly string _picFormat = "image/jpeg";
 
         public AccountController(IConfiguration config, IEncrypt encryptor, UserIdentityDbContext identityDbContext,UserAndVideoDbContext userAndVideoDbContext)
         {
@@ -67,6 +69,29 @@ namespace FakeBilibili.Controllers
                 return Unauthorized();
             }
             return Ok(new {Id= user.Id,Email=user.Email,UserName = user.UserName,Works=user.Works.Select(w=>w.Id),Follows=user.Follows,Fans=user.Fans});
+        }
+
+        [HttpGet]
+        [Route("GetAvatar/{userName}")]
+        [Route("GetAvatar")]
+        public async Task<IActionResult> GetAvatar(string userName)
+        {
+            if (userName!=null)
+            {
+                User user = await _userAndVideoDbContext.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+                if (System.IO.File.Exists(user?.AvatarLocation))
+                {
+                    return File(System.IO.File.ReadAllBytes(user.AvatarLocation), _picFormat);
+                }
+            }
+
+            string defaultAvatarLocation = Path.Combine(Directory.GetCurrentDirectory(), "Avatar", "default.jpg");
+            if (System.IO.File.Exists(defaultAvatarLocation))
+            {
+                return File(System.IO.File.ReadAllBytes(defaultAvatarLocation), _picFormat);
+            }
+
+            return null;
         }
 
         async Task<UserIdentity> ValidateUser(LoginModel account)

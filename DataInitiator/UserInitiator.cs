@@ -30,7 +30,7 @@ namespace FakeBilibili.DataInitiator
                     pictureSerial = i % 4;
                     User user = new User()
                     {
-                        AvatarLocation = Path.Combine(currentDirectory,$"{pictureSerial}.jpg"),
+                        AvatarLocation = Path.Combine(currentDirectory,"Avatar",$"{pictureSerial}.jpg"),
                         UserName = $"User{i+1}",
                         Id = i+1,
                         Email = $"User{i+1}@cnblog.com"

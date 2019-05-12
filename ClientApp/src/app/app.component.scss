@@ -1,17 +1,32 @@
 .head-nav {
+  margin: 0 auto;
+  width: 1300px;
     ul {
       list-style: none;
       li {
-        display: inline;
-        padding: 0.5em;        
+        display: inline-block;
+        padding: 0.5em;
+        height: 50px;
         a{
             color: black;
-        }
+        };
       }
     }
   }
-  
 
   li:hover{
       background-color: rgb(240, 240, 240)
+  }
+
+  .normal-menu{
+      float: left;
+  }
+
+  .personal-menu{
+      float: right;
+      margin-right: 4em
+  }
+
+  .avatar{
+    height:2em;
   }

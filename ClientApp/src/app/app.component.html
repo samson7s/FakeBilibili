@@ -1,13 +1,25 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
     <nav class="head-nav">
-      <ul>
-        <li><a href="www.fuck.com">主站</a></li>
-        <li><a>画友</a></li>
-        <li><a>音频</a></li>
-        <li><a>直播中心</a></li>
-        <li><a>下载APP</a></li>
-      </ul>
+        <div class="normal-menu">
+            <ul>
+                <li><a href="/"><img height="100%" width="100%" [src]="navbarPic">主站</a></li>
+                <li><a>画友</a></li>
+                <li><a>音频</a></li>
+                <li><a>直播中心</a></li>
+                <li><a>下载APP</a></li>
+            </ul>
+        </div>
+        <div class="personal-menu">
+            <ul>
+                <li class="personalAvatar"><img [src]="avatarString" class="avatar"></li>
+                <li>直播中心</li>
+                <li class="submitVideo">投稿</li>
+            </ul>            
+        </div>
+        <img>
     </nav>
-  </div>
-<router-outlet></router-outlet>
+</div>
+<div style="clear:both">
+    <router-outlet></router-outlet>
+</div>
